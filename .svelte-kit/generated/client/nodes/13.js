@@ -1,1 +1,0 @@
-export { default as component } from "../../../../src/routes/skins/category/[slug]/+page.svelte";
