@@ -1,0 +1,11 @@
+{
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    }
+  ],
+  "hooks": {
+    "build": "yarn prisma generate && yarn build"  // Uruchomienie `prisma generate` przed budowaniem aplikacji
+  }
+}
