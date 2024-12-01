@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-  "dev": "vite",
-  "build": "prisma generate && vite build",
-  "preview": "vite preview",
-  "start": "yarn build && node server",
+  "dev": "vite",  // Uruchomienie serwera Vite w trybie deweloperskim
+  "build": "prisma generate && vite build",  // Kompilacja aplikacji
+  "preview": "vite preview",  // Uruchomienie podglądu po kompilacji
+  "start": "yarn build && node server.js",  // Uruchomienie aplikacji na produkcji
   "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
   "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-  "lint": "prettier --plugin=prettier-plugin-svelte --plugin=prettier-plugin-organize-imports --plugin=prettier-plugin-tailwindcss --check . && eslint .",
-  "format": "prettier --plugin=prettier-plugin-svelte --plugin=prettier-plugin-organize-imports --plugin=prettier-plugin-tailwindcss --write ."
+  "lint": "eslint .",
+  "format": "prettier --write ."
   },
   "imports": {
     "$components": {
