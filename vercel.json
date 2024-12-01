@@ -1,11 +1,19 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "package.json",
       "use": "@vercel/node"
+    },
+    {
+      "src": "server/index.js",
+      "use": "@vercel/static"
     }
   ],
-  "hooks": {
-    "build": "yarn prisma generate && yarn build"  // Uruchomienie `prisma generate` przed budowaniem aplikacji
-  }
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.js"
+    }
+  ]
 }
