@@ -1,9 +1,12 @@
 import sveltePreprocess from 'svelte-preprocess';
+import adapter from '@sveltejs/adapter-static';
 
 export default {
-  preprocess: sveltePreprocess({
-    typescript: {
-      transpileOnly: true, // Add this if you want to speed up transpilation
-    }
-  })
+  kit: {
+    adapter: adapter(),
+    paths: {
+      base: '' // Jeżeli Twoja aplikacja jest w subfolderze, ustaw odpowiednią ścieżkę.
+    },
+  },
+  preprocess: sveltePreprocess(),
 };
