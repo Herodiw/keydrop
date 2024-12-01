@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "rootDir": "./",
+    "moduleResolution": "Node",
+    "baseUrl": "./",
+    "sourceMap": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "ignoreDeprecations": "5.0",
+    "paths": {
+      "$components/*": ["./src/components/*"],
+      "$static/*": ["./static/*"],
+      "$assets/*": ["./src/assets/*"],
+      "$lib": ["./src/lib"],
+      "$lib/*": ["./src/lib/*"]
+    },
+    "verbatimModuleSyntax": true
+  }
+}

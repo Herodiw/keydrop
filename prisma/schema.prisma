@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String  @id @unique
+  username     String  @unique
+  passwordHash String
+  balance      Float   @default(50)
+  goldBalance  Int     @default(0)
+  sandboxMode  Boolean @default(false)
+  pfpUrl       String  @default("https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/eb/ebd92149e5950221fcb87ca8475493b8e77833f3_full.jpg")
+  language     String  @default("en")
+  inventory    Item[]
+}
+
+model Item {
+  dropId        String              @id @unique
+  ownerId       String
+  origin        String
+  globalInvID   String
+  dropDate      DateTime            @default(now())
+  sold          Boolean             @default(false)
+  upgraded      Boolean             @default(false)
+  globalInvItem GlobalInventoryItem @relation(fields: [globalInvID], references: [id])
+  owner         User                @relation(fields: [ownerId], references: [id])
+}
+
+model Session {
+  id     String @id @unique
+  userId String
+}
+
+model Case {
+  urlName        String       @id @unique
+  websiteName    String       @unique
+  price          Float
+  expired        Boolean      @default(false)
+  category       String?
+  goldenCase     Boolean?     @default(false)
+  imgName        String
+  positionInGrid Int?
+  section        CaseSection? @relation(fields: [category], references: [name])
+  drops          CaseDrop[]
+}
+
+model CaseSection {
+  id       String @id @unique
+  name     String @unique
+  rowSpan  Int
+  colSpan  Int
+  ratio    String
+  position Int
+  cases    Case[]
+}
+
+model CaseDrop {
+  id            String              @id @unique
+  globalInvID   String
+  weaponName    String
+  skinName      String
+  skinQuality   String
+  skinPrice     Float
+  skinRarity    String
+  skinImgSource String
+  stattrack     Boolean             @default(false)
+  parentCase    String
+  displayOdds   String
+  oddsRange     Int[]
+  priceRange    String
+  displayChance String
+  globalInvItem GlobalInventoryItem @relation(fields: [globalInvID, weaponName, skinName, skinQuality, skinPrice, skinRarity, skinImgSource, stattrack], references: [id, weaponName, skinName, skinQuality, skinPrice, skinRarity, skinImgSource, stattrack])
+  case          Case                @relation(fields: [parentCase], references: [websiteName])
+
+  @@unique([parentCase, weaponName, skinName, skinQuality])
+}
+
+model GlobalInventoryItem {
+  id            String     @id @unique
+  weaponName    String
+  skinName      String
+  skinQuality   String
+  skinPrice     Float
+  skinRarity    String
+  skinImgSource String
+  stattrack     Boolean    @default(false)
+  CaseDop       CaseDrop[]
+  Item          Item[]
+
+  @@unique([weaponName, skinName, skinQuality, stattrack])
+  @@unique([id, weaponName, skinName, skinQuality, skinPrice, skinRarity, skinImgSource, stattrack])
+}
+
+model CaseBattle {
+  id          Int      @id @default(autoincrement())
+  totalPrice  Float
+  totalCases  Int
+  owner       String
+  finished    Boolean  @default(false)
+  players     Json
+  playerCount Int
+  caseData    Json[]
+  drops       Json
+  wonItems    Json
+  public      Boolean
+  joinKey     String?
+  mode        String
+  winner      Int?
+  createdAt   DateTime @default(now())
+}
