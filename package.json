@@ -80,10 +80,9 @@
     "svelte-adapter-static-digitalocean": "^2.0.1",
     "svelte-i18n": "^3.7.0",
     "svelte-local-storage-store": "^0.5.0",
-    "swiper": "^10.2.0",
-    "intl-messageformat": "^9.4.0"  // Dodanie zależności dla intl-messageformat
+    "swiper": "^10.2.0"
   },
   "engines": {
-    "node": "18.x"  // Wymuszenie wersji Node.js na Vercel
+    "node": "18.x"
   }
 }
